@@ -4,11 +4,15 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ."
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "lerna": "^3.10.7"
+    "eslint": "^5.12.1",
+    "eslint-config-hyder": "^0.1.0-beta",
+    "lerna": "^3.10.7",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "private": true,
   "repository": {
