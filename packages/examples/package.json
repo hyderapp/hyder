@@ -5,12 +5,14 @@
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1",
+    "bulma": "^0.7.2",
+    "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "eslint-config-hyder": "^0.1.0-beta.0",
+    "node-sass": "^4.11.0",
     "react-scripts": "^2.1.3"
   },
   "private": true,
