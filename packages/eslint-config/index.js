@@ -13,5 +13,10 @@ module.exports = {
     jest: true,
     node: true
   },
-  rules: require('./rules')
+  rules: require('./rules'),
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  }
 };
