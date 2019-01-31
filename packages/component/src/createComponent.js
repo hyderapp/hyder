@@ -1,5 +1,6 @@
 import React from 'react';
-import dispatcher from './dispatcher';
+import defaultDispatch from './dispatch';
+import { DISPATCHER } from './symbols';
 
 
 /* eslint react/prop-types: 0 */
@@ -14,21 +15,23 @@ const defaultReducers = {
 
 export default function createComponent(model) {
   model = normalizeModel(model);
+  const dispatch = global[DISPATCHER] || defaultDispatch;
 
   return View => {
     class HyderComponent extends React.Component {
       constructor(props) {
         super(props);
         this.state = typeof model.state === 'function' ? model.state(this.props) : model.state;
+        this.stater = {
+          get: () => this.state,
+          set: (v, cb) => this.setState(v, cb)
+        };
       }
 
       dispatch = action => {
         const { type } = action;
-        const effect = model.effects[type];
         if (model.effects[type] || model.reducers[type]) {
-          return dispatcher(model, action, this.state).then(state => {
-            return new Promise(resolve => this.setState(state, resolve));
-          });
+          return dispatch(model, action, this.stater);
         }
         return this.props.dispath && this.props.dispatch(action);
       };

@@ -1,7 +1,9 @@
 import createComponent from './createComponent';
-import { replaceDispatcher } from './dispatcher';
+import dispatch from './dispatch';
+import replaceDispatcher from './replaceDispatcher';
 
 export {
   createComponent,
+  dispatch,
   replaceDispatcher
 };

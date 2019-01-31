@@ -1,4 +1,5 @@
 export default {
+  // state: { count: 1 } or
   state: props => ({ count: props.count || 0 }),
 
   reducers: {
@@ -15,14 +16,18 @@ export default {
 
   effects: {
     * mount({ count }, { put }) {
-      yield put({ type: 'load', payload: { count } });
+      // load data
+      yield sleep(300);
+      yield put({ type: 'load', payload: { count: count + 10 } });
     },
 
-    * reload(_, { put, select }) {
-      const count = yield select(v => v.count);
-      yield sleep(100);
-      const step = Math.floor((Math.random() * 100));
-      yield put({ type: 'load', payload: { count: count + step } });
+    * random(_, { put, select }) {
+      for (let i = 0; i < 5; i++) {
+        const count = yield select(v => v.count);
+        yield sleep(300);
+        const step = Math.floor((Math.random() * 100));
+        yield put({ type: 'load', payload: { count: count + step } });
+      }
     }
   }
 };

@@ -11,7 +11,7 @@ const Counter = ({ count, dispatch }) => (
     <div className="buttons">
       <button className="button" onClick={() => dispatch({ type: 'up', step: 3 })}>Up</button>
       <button className="button" onClick={() => dispatch({ type: 'down', step: 4 })}>Down</button>
-      <button className="button" onClick={() => dispatch({ type: 'reload', step: 7 })}>Reload</button>
+      <button className="button" onClick={() => dispatch({ type: 'random', step: 7 })}>Random</button>
     </div>
   </div>
 );
