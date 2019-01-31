@@ -23,7 +23,7 @@ export default {
 
     * random(_, { put, select }) {
       for (let i = 0; i < 5; i++) {
-        const count = select(v => v.count);
+        const count = yield select(v => v.count);
         yield sleep(300);
         const step = Math.floor((Math.random() * 100));
         yield put({ type: 'load', payload: { count: count + step } });

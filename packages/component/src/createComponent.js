@@ -1,17 +1,10 @@
 import React from 'react';
 import defaultDispatch from './dispatch';
+import normalizeModel from './normalizeModel';
 import { DISPATCHER } from './symbols';
 
 
 /* eslint react/prop-types: 0 */
-
-
-const defaultReducers = {
-  load: (state, { payload }) => {
-    return { ...state, ...payload };
-  }
-};
-
 
 export default function createComponent(model) {
   model = normalizeModel(model);
@@ -54,12 +47,4 @@ export default function createComponent(model) {
 
     return HyderComponent;
   };
-}
-
-
-function normalizeModel(model) {
-  const state = model.state || {};
-  const reducers = { ...defaultReducers, ...model.reducers };
-  const effects = { ...model.effects };
-  return { state, reducers, effects };
 }

@@ -14,7 +14,7 @@ export default function dispatch(model, action, stater) {
     return new Promise(resolve => stater.set(nextState, resolve));
   }
 
-  throw new Error('assert false');
+  return Promise.reject(new Error(`action not exists: ${action.type}`));
 }
 
 

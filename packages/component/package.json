@@ -15,7 +15,8 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
-    "babel-preset-react-app": "^7.0.0"
+    "babel-preset-react-app": "^7.0.0",
+    "reduce-reducers": "^0.4.3"
   },
   "license": "MIT"
 }
