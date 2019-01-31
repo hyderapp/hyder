@@ -1,7 +1,5 @@
 export default {
-  state: {
-    count: 0
-  },
+  state: props => ({ count: props.count || 0 }),
 
   reducers: {
     up(state, { step }) {
@@ -15,7 +13,7 @@ export default {
     }
   },
 
-  effets: {
+  effects: {
     * mount({ count }, { put }) {
       yield put({ type: 'load', payload: { count } });
     },

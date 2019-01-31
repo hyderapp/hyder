@@ -1,7 +1,7 @@
 import createComponent from './createComponent';
-import defaultMiddleware from './defaultMiddleware';
+import { replaceDispatcher } from './dispatcher';
 
 export {
   createComponent,
-  defaultMiddleware
+  replaceDispatcher
 };
