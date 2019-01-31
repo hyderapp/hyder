@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "release": "lerna publish"
   },
   "dependencies": {},
   "devDependencies": {
