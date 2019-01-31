@@ -59,7 +59,6 @@ function addModel(map, model, store) {
 function createHyderReducer() {
   return (state, { type, payload }) => {
     if (type === INIT || type === SET) {
-      // payload: model
       state = { ...state, [payload.name]: payload.state };
     }
     return state;
