@@ -879,6 +879,11 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
+"@hyder/component@^0.1.0-beta.2":
+  version "0.1.0-beta.2"
+  resolved "https://registry.yarnpkg.com/@hyder/component/-/component-0.1.0-beta.2.tgz#ac4c2ec8b9da7f43cfdf8ba2e8ae07c61597817a"
+  integrity sha512-koWovx7SEJrhoKp274LaGFvDpf71NJWqhCPCs+vjZ2EAwVifpCT8Z1mHbxUmMPRQij6MUWoMDc4/8/CCnI+Klg==
+
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/@mrmlnc/readdir-enhanced/-/readdir-enhanced-2.2.1.tgz#524af240d1a360527b730475ecfa1344aa540dde"
@@ -3361,10 +3366,10 @@ eslint-config-airbnb-base@^13.1.0:
     object.assign "^4.1.0"
     object.entries "^1.0.4"
 
-eslint-config-hyder@^0.1.0-beta.0:
-  version "0.1.0-beta.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-hyder/-/eslint-config-hyder-0.1.0-beta.0.tgz#7388c441ea8907dd2aa8ff0a625ce4b5871a4deb"
-  integrity sha512-XCE6Eoc++WgJNi3f1xeHSnvX0hlO28TWJ5kLkxQojQDbTUJKlg7iJC22/YV9wQ11tBiKkxjQ3IHoV1SxLrKD2A==
+eslint-config-hyder@^0.1.0-beta.1:
+  version "0.1.0-beta.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-hyder/-/eslint-config-hyder-0.1.0-beta.1.tgz#ea1830ddc70b083a658e4baae9d12f5ffa4d7a8d"
+  integrity sha512-k69JGTZ9bCNcvnT7sRSfXT251g68pqyGWHfWZjlAtaxLiI8LBG2KVyN+UTh7KV6xu1nYCClr9hSNypzwcBqvJA==
   dependencies:
     babel-eslint "^9.0.0"
     eslint-config-airbnb-base "^13.1.0"
