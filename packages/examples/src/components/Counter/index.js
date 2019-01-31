@@ -1,7 +1,7 @@
 import React from 'react';
 import $t from 'prop-types';
 import { createComponent } from '@hyder/component';
-import service from './service';
+import model from './model';
 import style from './style.scss';
 
 
@@ -23,4 +23,4 @@ Counter.propTypes = {
 };
 
 
-export default createComponent(service)(Counter);
+export default createComponent(model)(Counter);
