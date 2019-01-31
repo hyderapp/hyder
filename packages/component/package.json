@@ -3,6 +3,10 @@
   "version": "0.1.0-beta.1",
   "description": "用于创建hyder组件",
   "main": "dist/index.js",
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
     "start": "NODE_ENV=development babel src --watch --out-dir dist",
     "prepublish": "rm -rf dist && npm run build",
