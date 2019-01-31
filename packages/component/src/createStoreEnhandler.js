@@ -23,7 +23,7 @@ export default function createEnhander(innerEnhancer) {
 
   enhancer.add = models => {
     if (!boundAddModel) {
-      throw new Error('You must add model[s] after mount hyderMiddleware using applyMiddleware.');
+      throw new Error('You must add model[s] after mount hyderStoreEnhancer using createStore.');
     }
     models = Array.isArray(models) ? models : [models];
     models.forEach(boundAddModel);
