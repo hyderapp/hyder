@@ -879,10 +879,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@hyder/component@^0.1.0-beta.4":
-  version "0.1.0-beta.4"
-  resolved "https://registry.yarnpkg.com/@hyder/component/-/component-0.1.0-beta.4.tgz#1079d2d3f9935979c77efe51b697434af149ee31"
-  integrity sha512-8H/h5QyUn6vpB8wCdkuUQdJ8QFliMRsIGgUjbuS0L5vtsHfNX4y/fZBRedDU7BXtYYGQ6GXbQ8Lqg0Wb3VQ7Ow==
+"@hyder/component@^0.1.0-beta.5":
+  version "0.1.0-beta.5"
+  resolved "https://registry.yarnpkg.com/@hyder/component/-/component-0.1.0-beta.5.tgz#b4a05e1d5439e44fefe889a6531ce08b09195803"
+  integrity sha512-KYklwG30RGqrvfqCcVL8e2sturXtAhFXQTwbDNwFo0Ca/iBPaL3OFc6ouTaky4+7KU2jIwdNnuRoSFlR1yk1iw==
   dependencies:
     reduce-reducers "^0.4.3"
 
