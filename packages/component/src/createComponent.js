@@ -14,10 +14,12 @@ export default function createComponent(model) {
     class HyderComponent extends React.Component {
       constructor(props) {
         super(props);
-        this.state = typeof model.state === 'function' ? model.state(this.props) : model.state;
+        this.state = {
+          data: typeof model.state === 'function' ? model.state(this.props) : model.state
+        };
         this.stater = {
-          get: () => this.state,
-          set: (v, cb) => this.setState(v, cb)
+          get: () => this.state.data,
+          set: (data, cb) => this.setState({ data }, cb)
         };
       }
 
@@ -37,7 +39,7 @@ export default function createComponent(model) {
       render() {
         const props = {
           ...this.props,
-          ...this.state,
+          ...this.state.data,
           dispatch: this.dispatch,
           originalDispatch: this.props.dispatch
         };
