@@ -21,6 +21,7 @@ export default {
 
 
   effects: {
+    // { type, ...props },  { put, select }
     * mount(props, { put }) {
       yield put({ type: 'load', payload: { count: 1 } });
     },
@@ -28,7 +29,7 @@ export default {
     * random({ step }, { put, select }) {
       for (let i = 0; i < 10; i++) {
         yield sleep(300);
-        const count = yield select(v => v.count);
+        const count = yield select(state => state.count);
         const nextCount = count + step;
         yield put({ type: 'load', payload: { count: nextCount } });
       }

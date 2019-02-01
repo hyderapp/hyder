@@ -15,6 +15,7 @@ export default {
   },
 
   effects: {
+    // action, helpers
     * mount({ count }, { put }) {
       // load data
       yield sleep(300);
@@ -23,7 +24,7 @@ export default {
 
     * random(action, { put, select }) {
       for (let i = 0; i < 5; i++) {
-        const count = yield select(v => v.count);
+        const count = yield select(state => state.count);
         yield sleep(300);
         const step = Math.floor((Math.random() * 100));
         yield put({ type: 'load', payload: { count: count + step } });
