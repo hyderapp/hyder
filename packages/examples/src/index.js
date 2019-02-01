@@ -38,7 +38,7 @@ const App = () => (
 
 const enhance = connect(v => v);
 
-const PageView = enhance(({ page = {}, dispatch }) => (
+const PageView = enhance(({ page, dispatch }) => (
   <div className="page-view">
     <h1>{page.title}</h1>
     <div>

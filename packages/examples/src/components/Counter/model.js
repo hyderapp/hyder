@@ -21,7 +21,7 @@ export default {
       yield put({ type: 'load', payload: { count: count + 10 } });
     },
 
-    * random(_, { put, select }) {
+    * random(action, { put, select }) {
       for (let i = 0; i < 5; i++) {
         const count = yield select(v => v.count);
         yield sleep(300);

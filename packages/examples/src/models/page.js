@@ -21,7 +21,7 @@ export default {
 
 
   effects: {
-    * mount(_, { put }) {
+    * mount(props, { put }) {
       yield put({ type: 'load', payload: { count: 1 } });
     },
 
