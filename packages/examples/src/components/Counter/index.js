@@ -1,6 +1,6 @@
 import React from 'react';
 import $t from 'prop-types';
-import { createComponent } from '@hyder/component';
+import { withModel } from '@hyder/component';
 import model from './model';
 import style from './style.scss';
 
@@ -23,4 +23,4 @@ Counter.propTypes = {
 };
 
 
-export default createComponent(model)(Counter);
+export default withModel(model)(Counter);

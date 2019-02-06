@@ -6,7 +6,7 @@ import { DISPATCHER } from './symbols';
 
 /* eslint react/prop-types: 0 */
 
-export default function createComponent(model) {
+export default function withModel(model) {
   model = normalizeModel(model);
   const dispatch = global[DISPATCHER] || defaultDispatch;
 

@@ -1,10 +1,10 @@
-import createComponent from './createComponent';
+import withModel from './withModel';
 import createHyderEnhancer from './createStoreEnhandler';
 import dispatch from './dispatch';
 import replaceDispatcher from './replaceDispatcher';
 
 export {
-  createComponent,
+  withModel,
   createHyderEnhancer,
   dispatch,
   replaceDispatcher
