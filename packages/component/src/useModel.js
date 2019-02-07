@@ -7,10 +7,8 @@ import { DISPATCHER } from './symbols';
 export default function useModel(model, props = {}) {
   model = useMemo(() => normalizeModel(model), [model]);
   const dispatch = global[DISPATCHER] || defaultDispatch;
-
-  const [state, setState] = useState(() => {
-    return model.state === 'function' ? model.state(props) : model.state;
-  });
+  const init = typeof model.state === 'function' ? model.state(props) : model.state;
+  const [state, setState] = useState(init);
 
   const stater = {
     get: () => state,
