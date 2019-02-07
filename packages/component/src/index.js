@@ -1,11 +1,14 @@
-import withModel from './withModel';
 import createHyderEnhancer from './createStoreEnhandler';
 import dispatch from './dispatch';
 import replaceDispatcher from './replaceDispatcher';
+import useModel from './useModel';
+import withModel from './withModel';
+
 
 export {
-  withModel,
   createHyderEnhancer,
   dispatch,
-  replaceDispatcher
+  replaceDispatcher,
+  useModel,
+  withModel
 };
