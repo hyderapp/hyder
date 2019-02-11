@@ -159,7 +159,7 @@ export default {
   },
 
   effects: {
-    * up(action, { put, select }){
+    * down(action, { put, select }){
       ...
     }
   }
