@@ -1,3 +1,7 @@
+/**
+ * @model
+ */
+
 export default {
   name: 'page',
 

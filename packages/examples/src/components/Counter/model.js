@@ -1,3 +1,7 @@
+/**
+ * @model
+ */
+
 export default {
   // state: { count: 1 } or
   state: props => ({ count: props.count || 0 }),
