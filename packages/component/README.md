@@ -61,7 +61,7 @@ export default {
 
 ### index.js
 
-通过该提供的`withModel`高阶组件来组合以上定义的model。
+通过提供的`withModel`高阶组件来组合以上定义的model。
 
 
 ```js
