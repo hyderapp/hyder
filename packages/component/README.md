@@ -2,8 +2,7 @@
 
 提供一致的方式创建React模块和应用，让react应用开发更轻松。
 
-基于@hyder/component的模块能运行在hyder环境中, 其中的逻辑代码运行在js-core环境中， 也能够运行在正常的react应用中， 提升模块重用度，简化复杂模块的开发难度，特别适合团队开发。
-
+基于@hyder/component的模块能够运行在hyder环境中, 其中的逻辑代码运行在js-core环境中， 也能够运行在普通的react应用中， 提升模块重用度，简化复杂模块的开发难度，特别适合团队开发。
 
 
 ## 开始使用
@@ -28,9 +27,9 @@ yarn add @hyder/component
   - style.scss # 样式
 ```
 
-**hyder babel插件会根据注解加载model.js到js-core中**
+**hyder babel插件会根据model中的注解加载model到js-core中(这个特性还在内部开发中)**
 
-可参考[Counter示例](../examples/src/components/Counter)。
+模块目录和代码可参考[Counter示例](../examples/src/components/Counter)。
 
 
 借鉴于[dva](https://dvajs.com/)的最佳实践，model由**state**, **reducers**, 和**effects**组成。
@@ -40,6 +39,7 @@ yarn add @hyder/component
 
 ```js
 export default {
+  // state: { ... }
   state: props => ({ count: 0 }),  // 模块的state可由props初始化
 
   reducers: {
@@ -61,7 +61,8 @@ export default {
 
 ### index.js
 
-通过提供的`withModel`高阶组件来组合以上定义的model。
+
+通过提供的`withModel`高阶组件来组合上面定义的model。
 
 
 ```js
@@ -136,7 +137,7 @@ hyderEnhancer.add([
 
 1. model
 
-model的编写和上述一致，多了name，和少了mount生命周期，因为应用级别的model不和某个具体的react组件绑定。
+model的编写和上述一致，多了name，和少了`mount`对生命周期的支持，因为应用级别的model不和某个具体的react组件绑定。
 
 详情可见[示例](../examples/src/index.js)
 
