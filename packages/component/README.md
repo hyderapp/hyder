@@ -1,6 +1,6 @@
 # @hyder/component
 
-提供一致的方式创建模块和应用，让react应用开发更轻松。
+提供一致的方式创建React模块和应用，让react应用开发更轻松。
 
 基于@hyder/component的模块能运行在hyder环境中, 其中的逻辑代码运行在js-core环境中， 也能够运行在正常的react应用中， 提升模块重用度，简化复杂模块的开发难度，特别适合团队开发。
 
@@ -17,7 +17,7 @@ yarn add @hyder/component
 
 2. 创建组件
 
-每个组件(如需要较复杂的逻辑)可由`View`和`Model`组成， 在hyder中`model` 会运行在js-core环境中。 
+组件(如需要较复杂的逻辑)可由`View`和`Model`组成， 在hyder中`model` 会运行在js-core环境中。 
 
 模块的开发方式和目录结构并无要求，但推荐如下：
 
@@ -28,17 +28,19 @@ yarn add @hyder/component
   - style.scss # 样式
 ```
 
+**hyder babel插件会根据注解加载model.js到js-core中**
+
 可参考[Counter示例](../examples/src/components/Counter)。
 
 
-借鉴于[dva](https://dvajs.com/)的最佳实践，model由state, reducers, 和effects组成。
+借鉴于[dva](https://dvajs.com/)的最佳实践，model由**state**, **reducers**, 和**effects**组成。
 
 
 ### model.js
 
 ```js
 export default {
-  state: props => ({ count: 0 }),
+  state: props => ({ count: 0 }),  // 模块的state可由props初始化
 
   reducers: {
     up(state, action) {
@@ -59,11 +61,10 @@ export default {
 
 ### index.js
 
-然后可通过该组件提供的**高阶组件**来组合以上定义的model。
+通过该提供的`withModel`高阶组件来组合以上定义的model。
 
 
 ```js
-...
 import { withModel } from '@hyder/component';   // 引入withModel
 import model from './model.js';
 
@@ -105,7 +106,7 @@ const Counter = props => {
 
 ## 接入到redux
 
-配合react-redux可在应用级别使用, 无需依赖其他库，如saga或dva，可直接集成到现有redux应用中。
+配合react-redux可在应用级别使用, 无需依赖其他库，可方便集成到现有redux应用中。
 
 
 ### 接入
@@ -135,9 +136,9 @@ hyderEnhancer.add([
 
 1. model
 
-model的编写和上述一致，多了name，和少了mount生命周期，因为应用级别的model是不和某个react组件绑定的。
+model的编写和上述一致，多了name，和少了mount生命周期，因为应用级别的model不和某个具体的react组件绑定。
 
-具体可见[示例](../examples/src/index.js)
+详情可见[示例](../examples/src/index.js)
 
 
 ```js
@@ -145,6 +146,7 @@ model的编写和上述一致，多了name，和少了mount生命周期，因为
 
 export default {
   name: 'page',    // 名称，在dispatch中作为名字空间
+
   state: {
     count: 0       // 初始state, 由于应用级model不和具体react组件关键，所以只是个普通对象
   },
@@ -165,7 +167,7 @@ export default {
 
 2. view
 
-就是正常的`react-redux`的方式。
+像正常的`react-redux`的方式使用就可以啦。
 
 ```js
 const enhance = connect(v => v);
