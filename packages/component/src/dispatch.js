@@ -11,7 +11,8 @@ export default function dispatch(model, action, stater) {
   const reducer = model.reducers[type];
   if (reducer) {
     const nextState = reducer(stater.get(), action);
-    return new Promise(resolve => stater.set(nextState, resolve));
+    stater.set(nextState);
+    return Promise.resolve();
   }
 
   return Promise.reject(new Error(`action not exists: ${action.type}`));

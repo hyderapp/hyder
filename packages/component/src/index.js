@@ -1,6 +1,7 @@
 import createHyderEnhancer from './createStoreEnhandler';
 import dispatch from './dispatch';
-import replaceDispatcher from './replaceDispatcher';
+import normalizeModel from './normalizeModel';
+import replaceDispatch from './replaceDispatch';
 import useModel from './useModel';
 import withModel from './withModel';
 
@@ -8,7 +9,8 @@ import withModel from './withModel';
 export {
   createHyderEnhancer,
   dispatch,
-  replaceDispatcher,
+  normalizeModel,
+  replaceDispatch,
   useModel,
   withModel
 };

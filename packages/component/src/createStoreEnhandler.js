@@ -1,10 +1,11 @@
 import reduceReducers from 'reduce-reducers';
-import dispatchToModel from './dispatch';
+import defaultDispatch from './dispatch';
 import normalizeModel from './normalizeModel';
 import { INIT, SET } from './symbols';
 
 
-export default function createEnhander(innerEnhancer) {
+export default function createEnhander(innerEnhancer, opts = {}) {
+  const dispatchToModel = opts.dispatch || defaultDispatch;
   innerEnhancer = innerEnhancer || (createStore => (...args) => createStore(...args));
 
   const modelsMap = new Map();
@@ -15,7 +16,7 @@ export default function createEnhander(innerEnhancer) {
   const enhancer = createStore => (reducer, preloadedState) => {
     reducer = reduceReducers(hyderReducer, reducer);
     const store = innerEnhancer(createStore)(reducer, preloadedState);
-    const dispatch = createDispatch(modelsMap, store);
+    const dispatch = createDispatch(modelsMap, store, dispatchToModel);
     const newStore = { ...store, dispatch };
     boundAddModel = model => addModel(modelsMap, model, newStore);
     return newStore;
@@ -44,10 +45,9 @@ function addModel(map, model, store) {
 
   const stater = {
     get: () => store.getState()[model.name],
-    set: (state, cb) => {
+    set: state => {
       const payload = { name: model.name, state };
       store.dispatch({ type: SET, payload });
-      cb();
     }
   };
 
@@ -66,7 +66,7 @@ function createHyderReducer() {
 }
 
 
-function createDispatch(map, store) {
+function createDispatch(map, store, dispatchToModel) {
   const re = /^(.+)\/([^/]+)$/;
   return action => {
     const match = re.exec(action.type);

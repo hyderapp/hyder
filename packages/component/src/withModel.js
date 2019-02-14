@@ -1,15 +1,13 @@
 import React from 'react';
 import defaultDispatch from './dispatch';
 import normalizeModel from './normalizeModel';
-import { DISPATCHER } from './symbols';
+import { DISPATCH } from './symbols';
 
 
 /* eslint react/prop-types: 0 */
 
 export default function withModel(model) {
   model = normalizeModel(model);
-  const dispatch = global[DISPATCHER] || defaultDispatch;
-
   return View => {
     class HyderComponent extends React.Component {
       constructor(props) {
@@ -19,13 +17,14 @@ export default function withModel(model) {
         };
         this.stater = {
           get: () => this.state.data,
-          set: (data, cb) => this.setState({ data }, cb)
+          set: data => this.setState({ data })
         };
       }
 
       dispatch = action => {
         const { type } = action;
         if (model.effects[type] || model.reducers[type]) {
+          const dispatch = global[DISPATCH] || defaultDispatch;
           return dispatch(model, action, this.stater);
         }
         return this.props.dispath && this.props.dispatch(action);
@@ -34,6 +33,10 @@ export default function withModel(model) {
       componentDidMount() {
         const { props } = this;
         this.dispatch({ type: 'mount', ...props });
+      }
+
+      componentWillUnmount() {
+        this.dispatch({ type: 'unmount' });
       }
 
       render() {
