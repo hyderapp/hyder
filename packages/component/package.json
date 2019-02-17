@@ -2,14 +2,13 @@
   "name": "@hyder/component",
   "version": "0.1.0-beta.9",
   "description": "用于创建hyder组件",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "files": [
     "src",
     "dist"
   ],
   "scripts": {
     "start": "NODE_ENV=development babel src --watch --out-dir dist",
-    "prepublish": "rm -rf dist && npm run build",
     "build": "NODE_ENV=production babel src --out-dir dist"
   },
   "dependencies": {
