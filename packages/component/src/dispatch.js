@@ -22,7 +22,21 @@ export default function dispatch(model, action, stater) {
 function runEffect(model, effect, action, stater) {
   const helpers = createHelpers(model, stater);
   const iterator = effect(action, helpers);
-  return iteratorToPromise(iterator);
+
+  const resolveValue = (value, cb) => {
+    if (is.func(value)) {
+      return resolveValue(value(helpers), cb);
+    }
+    if (is.promise(value)) {
+      return resolvePromise(value, cb);
+    }
+    if (is.iterator(value)) {
+      return resolvePromise(iteratorToPromise(value, resolveValue), cb);
+    }
+    return cb(null, value);
+  };
+
+  return iteratorToPromise(iterator, resolveValue);
 }
 
 
@@ -34,7 +48,7 @@ function createHelpers(model, stater) {
 }
 
 
-function iteratorToPromise(iterator) {
+function iteratorToPromise(iterator, resolveValue) {
   return new Promise((resolve, reject) => {
     const finish = (err, value) => (err ? reject(err) : resolve(value));
     const next = (err, value) => {
@@ -46,19 +60,6 @@ function iteratorToPromise(iterator) {
     };
     next();
   });
-}
-
-
-function resolveValue(value, cb) {
-  if (is.promise(value)) {
-    return resolvePromise(value, cb);
-  }
-
-  if (is.iterator(value)) {
-    return resolvePromise(iteratorToPromise(value), cb);
-  }
-
-  return cb(null, value);
 }
 
 
