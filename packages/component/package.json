@@ -1,0 +1,21 @@
+{
+  "name": "@hyder/component",
+  "version": "0.1.0-beta.13",
+  "description": "用于创建hyder组件",
+  "main": "src/index.js",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "start": "NODE_ENV=development babel src --watch --out-dir dist"
+  },
+  "dependencies": {
+    "reduce-reducers": "^0.4.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "babel-preset-react-app": "^7.0.0"
+  },
+  "license": "MIT"
+}

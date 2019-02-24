@@ -1,0 +1,17 @@
+{
+  "name": "eslint-config-hyder",
+  "version": "0.1.0-beta.1",
+  "description": "eslint config for hyder framework",
+  "main": "index.js",
+  "dependencies": {
+    "babel-eslint": "^9.0.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0"
+  },
+  "license": "MIT"
+}

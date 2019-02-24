@@ -1,1 +1,3 @@
-# component
+# hyder
+
+开放、流畅的移动端应用框架

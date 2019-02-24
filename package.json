@@ -1,0 +1,27 @@
+{
+  "name": "@hyder/packages",
+  "description": "开放、流畅的移动端应用框架",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "release": "lerna publish"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^5.12.1",
+    "eslint-config-hyder": "^0.1.0-beta",
+    "lerna": "^3.10.7"
+  },
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hyderapp/hyder.git"
+  },
+  "author": "h5@hlj.team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hyderapp/hyder/issues"
+  },
+  "homepage": "https://github.com/hyderapp/hyder#readme"
+}
