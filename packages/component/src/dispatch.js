@@ -10,8 +10,11 @@ export default function dispatch(model, action, stater) {
 
   const reducer = model.reducers[type];
   if (reducer) {
-    const nextState = reducer(stater.get(), action);
-    stater.set(nextState);
+    const prevState = stater.get();
+    const nextState = reducer(prevState, action);
+    if (prevState !== nextState) {
+      stater.set(nextState);
+    }
     return Promise.resolve();
   }
 
