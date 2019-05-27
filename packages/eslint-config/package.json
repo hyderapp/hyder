@@ -1,6 +1,6 @@
 {
   "name": "eslint-config-hyder",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "eslint config for hyder framework",
   "main": "index.js",
   "dependencies": {
