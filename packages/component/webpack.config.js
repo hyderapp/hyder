@@ -31,7 +31,8 @@ module.exports = {
     path: pathUtil.resolve(__dirname, 'dist'),
     publicPath: '/',
     libraryTarget: 'umd',
-    library: 'HyderComponent'
+    library: 'HyderComponent',
+    globalObject: 'this'
   },
 
   module: {

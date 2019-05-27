@@ -1,10 +1,11 @@
 {
   "name": "@hyder/component",
-  "version": "0.2.0",
+  "version": "0.2.3",
   "description": "用于创建hyder组件",
   "main": "dist/index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --mode=production"
+    "start": "NODE_ENV=development webpack --mode=development --watch",
+    "build": "NODE_ENV=development webpack --mode=development"
   },
   "dependencies": {},
   "devDependencies": {
