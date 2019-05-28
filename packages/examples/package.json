@@ -5,18 +5,19 @@
     "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
   },
   "dependencies": {
-    "@hyder/component": "^0.1.0-beta.8",
+    "@hyder/component": "^0.2.0-alpha.5",
     "bulma": "^0.7.2",
     "prop-types": "^15.6.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
-    "react-redux": "^6.0.0",
+    "react-redux": "^7.0.3",
     "redux-promise": "^0.6.0"
   },
   "devDependencies": {
-    "eslint-config-hyder": "^0.1.0-beta.1",
+    "babel-eslint": "^10.0.1",
+    "eslint-config-hyder": "^0.3.0",
     "node-sass": "^4.11.0",
-    "react-scripts": "^2.1.3",
+    "react-scripts": "^3.0.1",
     "redux": "^4.0.1"
   },
   "private": true,
