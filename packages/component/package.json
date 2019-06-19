@@ -1,6 +1,6 @@
 {
   "name": "@hyder/component",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "用于创建hyder组件",
   "main": "dist/index.js",
   "scripts": {
