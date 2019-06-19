@@ -4,10 +4,8 @@ import normalizeModel from './normalizeModel';
 import { INIT, SET } from './symbols';
 
 
-export default function createEnhander(innerEnhancer, opts = {}) {
+export default function createEnhander(opts = {}) {
   const dispatchToModel = opts.dispatch || defaultDispatch;
-  innerEnhancer = innerEnhancer || (createStore => (...args) => createStore(...args));
-
   const modelsMap = new Map();
   let boundAddModel;
 
@@ -15,7 +13,7 @@ export default function createEnhander(innerEnhancer, opts = {}) {
 
   const enhancer = createStore => (reducer, preloadedState) => {
     reducer = reduceReducers(hyderReducer, reducer);
-    const store = innerEnhancer(createStore)(reducer, preloadedState);
+    const store = createStore(reducer, preloadedState);
     const dispatch = createDispatch(modelsMap, store, dispatchToModel);
     const newStore = { ...store, dispatch };
     boundAddModel = model => addModel(modelsMap, model, newStore);
