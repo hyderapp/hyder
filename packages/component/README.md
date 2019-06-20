@@ -113,17 +113,22 @@ const Counter = props => {
 ### 接入
 
 ```js
+import { compose } from 'redux';
 import { createHyderEnhancer } from '@hyder/component';   // 载入storeEnhancer
 
 import pageModel from './models/page';  // 载入应用的模块，可以有多个
 
 
-const hyderEnhancer = createHyderEnhancer(
-  // apply other middleware
-  applyMiddleware(promiseMiddleware)
-);
+const hyderEnhancer = createHyderEnhancer();
 
-const store = createStore(reducer, {}, hyderEnhancer);
+const store = createStore(
+  reducer,
+  {},
+  compose(
+    applyMiddleware(promiseMiddleware),
+    hyderEnhancer
+  )
+);
 
 // 添加应用的模块
 hyderEnhancer.add([
