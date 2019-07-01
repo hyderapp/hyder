@@ -936,10 +936,10 @@
   dependencies:
     "@hapi/hoek" "6.x.x"
 
-"@hyder/component@^0.2.0-alpha.5":
-  version "0.2.0-alpha.5"
-  resolved "https://registry.npm.taobao.org/@hyder/component/download/@hyder/component-0.2.0-alpha.5.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hyder%2Fcomponent%2Fdownload%2F%40hyder%2Fcomponent-0.2.0-alpha.5.tgz#87bdff242c4740cdf291133c1acc43888e8b5942"
-  integrity sha1-h73/JCxHQM3ykRM8GsxDiI6LWUI=
+"@hyder/component@^1.1.0-alpha.1":
+  version "1.1.0-alpha.1"
+  resolved "https://registry.npm.taobao.org/@hyder/component/download/@hyder/component-1.1.0-alpha.1.tgz?cache=0&sync_timestamp=1561967250441&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40hyder%2Fcomponent%2Fdownload%2F%40hyder%2Fcomponent-1.1.0-alpha.1.tgz#74d87f6720db0f4dfbeaa220d5d8ab4e9ceeeda8"
+  integrity sha1-dNh/ZyDbD0376qIg1dirTpzu7ag=
 
 "@jest/console@^24.7.1":
   version "24.7.1"

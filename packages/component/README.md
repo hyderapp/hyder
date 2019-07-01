@@ -114,12 +114,12 @@ const Counter = props => {
 
 ```js
 import { compose } from 'redux';
-import { createHyderEnhancer } from '@hyder/component';   // 载入storeEnhancer
+import { createStoreEnhancer } from '@hyder/component';   // 载入storeEnhancer
 
 import pageModel from './models/page';  // 载入应用的模块，可以有多个
 
 
-const hyderEnhancer = createHyderEnhancer();
+const hyderEnhancer = createStoreEnhancer();
 
 const store = createStore(
   reducer,
