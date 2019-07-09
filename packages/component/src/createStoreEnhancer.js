@@ -4,7 +4,13 @@ import normalizeModel from './normalizeModel';
 import { INIT, SET } from './symbols';
 
 
-export default function createEnhander(opts = {}) {
+/**
+ * create redux enhancer for hyderapp
+ *
+ * @param {Object} - opts
+ *  - dispatch :: (resolver, action, stater) -> Promise
+ */
+export default function createStoreEnhancer(opts = {}) {
   const dispatchToModel = opts.dispatch || defaultDispatch;
   const modelsMap = new Map();
   let boundAddModel;
@@ -65,6 +71,9 @@ function createHyderReducer() {
 
 
 function createDispatch(map, store, dispatchToModel) {
+  // {model}/${action}
+  // exp: 'index/update'
+  //  model: 'index', action: 'update'
   const re = /^(.+)\/([^/]+)$/;
   return action => {
     const match = re.exec(action.type);
@@ -79,3 +88,4 @@ function createDispatch(map, store, dispatchToModel) {
     return store.dispatch(action);
   };
 }
+
