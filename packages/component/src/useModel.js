@@ -5,7 +5,7 @@ import { DISPATCH } from './symbols';
 
 
 export default function useModel(model, props = {}) {
-  model = useMemo(() => normalizeModel(model), [model]);
+  model = useMemo(() => normalizeModel(model), []);
   const dispatch = global[DISPATCH] || defaultDispatch;
   const init = typeof model.state === 'function' ? model.state(props) : model.state;
   const [state, setState] = useState(init);
@@ -18,8 +18,9 @@ export default function useModel(model, props = {}) {
   const boundDispatch = action => {
     const { type } = action;
     if (model.effects[type] || model.reducers[type]) {
-      dispatch(model, action, stater);
+      return dispatch(model, action, stater);
     }
+    return null;
   };
 
   useEffect(() => {

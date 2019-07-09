@@ -1,11 +1,29 @@
 import * as is from './is';
 
 
-export default function dispatch(model, action, stater) {
+/*
+
+Model :: {reducers: {Reducer...}, effects: {Effect...}}
+ModelResolver :: (action) -> Model
+Stater :: {get: () -> any, set: (value) -> null}
+
+*/
+
+
+/**
+ * dispatch action to model
+ *
+ * @param {ModelResolver} resolver
+ * @param {Action} action
+ * @param {Stater} stater
+ * @return {Promise}
+ */
+export default function dispatch(resolver, action, stater) {
+  const model = is.func(resolver) ? resolver(action) : resolver;
   const { type } = action;
   const effect = model.effects[type];
   if (effect) {
-    return runEffect(model, effect, action, stater);
+    return runEffect(resolver, model, effect, action, stater);
   }
 
   const reducer = model.reducers[type];
@@ -22,8 +40,8 @@ export default function dispatch(model, action, stater) {
 }
 
 
-function runEffect(model, effect, action, stater) {
-  const helpers = createHelpers(model, stater);
+function runEffect(resolver, model, effect, action, stater) {
+  const helpers = createHelpers(resolver, stater);
   const iterator = effect(action, helpers);
 
   const resolveValue = (value, cb) => {
@@ -44,9 +62,9 @@ function runEffect(model, effect, action, stater) {
 
 
 const id = v => v;
-function createHelpers(model, stater) {
+function createHelpers(resolver, stater) {
   const select = selector => (selector || id)(stater.get());
-  const put = action => dispatch(model, action, stater);
+  const put = action => dispatch(resolver, action, stater);
   return { select, put };
 }
 
