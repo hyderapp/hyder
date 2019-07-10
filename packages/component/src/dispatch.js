@@ -1,55 +1,64 @@
 import * as is from './is';
 
-
 /*
-
 Model :: {reducers: {Reducer...}, effects: {Effect...}}
-ModelResolver :: (action) -> Model
+Action :: { type: {String}, ... }
 Stater :: {get: () -> any, set: (value) -> null}
-
+Dispatcher :: (action) -> any
 */
 
 
 /**
- * dispatch action to model
+ * dispatch action
  *
- * @param {ModelResolver} resolver
+ * @param {Model} model
  * @param {Action} action
  * @param {Stater} stater
+ * @param {Dispatcher} fallback
  * @return {Promise}
  */
-export default function dispatch(resolver, action, stater) {
-  const model = is.func(resolver) ? resolver(action) : resolver;
+export default function dispatch(model, action, stater, fallback) {
+  fallback = fallback || defaultFallback;
+
   const { type } = action;
   const effect = model.effects[type];
+
   if (effect) {
-    return runEffect(resolver, model, effect, action, stater);
+    const helpers = createHelpers(model, stater, fallback);
+    return runEffect(effect, action, helpers);
   }
 
   const reducer = model.reducers[type];
   if (reducer) {
-    const prevState = stater.get();
-    const nextState = reducer(prevState, action);
-    if (prevState !== nextState) {
-      stater.set(nextState);
-    }
-    return Promise.resolve();
+    return runReducer(reducer, action, stater);
   }
 
-  return Promise.reject(new Error(`action not exists: ${action.type}`));
+  return fallback(action);
 }
 
 
-function runEffect(resolver, model, effect, action, stater) {
-  const helpers = createHelpers(resolver, stater);
+function defaultFallback(action) {
+  return Promise.reject(new Error(`action not found: ${action.type}`));
+}
+
+
+const id = v => v;
+function createHelpers(model, stater, fallback) {
+  const select = selector => (selector || id)(stater.get());
+  const put = action => dispatch(model, action, stater, fallback);
+  return { select, put };
+}
+
+
+function runEffect(effect, action, helpers) {
   const iterator = effect(action, helpers);
 
   const resolveValue = (value, cb) => {
-    if (is.func(value)) {
-      return resolveValue(value(helpers), cb);
-    }
     if (is.promise(value)) {
       return resolvePromise(value, cb);
+    }
+    if (is.func(value)) {
+      return resolveValue(value(helpers), cb);
     }
     if (is.iterator(value)) {
       return resolvePromise(iteratorToPromise(value, resolveValue), cb);
@@ -58,14 +67,6 @@ function runEffect(resolver, model, effect, action, stater) {
   };
 
   return iteratorToPromise(iterator, resolveValue);
-}
-
-
-const id = v => v;
-function createHelpers(resolver, stater) {
-  const select = selector => (selector || id)(stater.get());
-  const put = action => dispatch(resolver, action, stater);
-  return { select, put };
 }
 
 
@@ -86,4 +87,14 @@ function iteratorToPromise(iterator, resolveValue) {
 
 function resolvePromise(value, cb) {
   value.then(data => cb(null, data), err => cb(err));
+}
+
+
+function runReducer(reducer, action, stater) {
+  const prevState = stater.get();
+  const nextState = reducer(prevState, action);
+  if (prevState !== nextState) {
+    stater.set(nextState);
+  }
+  return Promise.resolve();
 }

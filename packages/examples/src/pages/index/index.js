@@ -5,9 +5,9 @@ import { Provider, connect } from 'react-redux';
 import promiseMiddleware from 'redux-promise';
 import { createHyderEnhancer } from '@hyder/component';
 import 'bulma/css/bulma.min.css';
-import Counter from './components/Counter';
-import CounterWithHook from './components/Counter/hook';
-import pageModel from './models/page';
+import Counter from '@/components/Counter';
+import CounterWithHook from '@/components/Counter/hook';
+import pageModel from '@/models/page';
 import './style.scss';
 
 
@@ -58,4 +58,4 @@ const PageView = enhance(({ page, dispatch }) => (
 ));
 
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('app'));

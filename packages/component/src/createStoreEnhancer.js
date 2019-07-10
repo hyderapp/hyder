@@ -75,17 +75,17 @@ function createDispatch(map, store, dispatchToModel) {
   // exp: 'index/update'
   //  model: 'index', action: 'update'
   const re = /^(.+)\/([^/]+)$/;
-  return action => {
+
+  const dispatch = action => {
     const match = re.exec(action.type);
-    if (match && map.has(match[1])) {
-      const { model, stater } = map.get(match[1]);
-      const type = match[2];
-      if (model.effects[type] || model.reducers[type]) {
-        const newAction = { ...action, type };
-        return dispatchToModel(model, newAction, stater);
-      }
+    const item = match && map.get(match[1]);
+    if (item) {
+      const { model, stater } = item;
+      const newAction = { ...action, type: match[2] };
+      return dispatchToModel(model, newAction, stater, dispatch);
     }
     return store.dispatch(action);
   };
+  return dispatch;
 }
 

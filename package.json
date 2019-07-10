@@ -10,7 +10,7 @@
   "dependencies": {},
   "devDependencies": {
     "eslint": "^5.12.1",
-    "eslint-config-hyder": "^0.1.0-beta",
+    "eslint-config-hyder": "^0.3.0",
     "lerna": "^3.10.7"
   },
   "private": true,
