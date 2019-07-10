@@ -19,6 +19,7 @@ export default function withModel(model) {
           get: () => this.state.data,
           set: data => this.setState({ data })
         };
+        this.dispatch({ type: '@@init' });
       }
 
       dispatch = action => {

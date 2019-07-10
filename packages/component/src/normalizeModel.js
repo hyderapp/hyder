@@ -1,4 +1,6 @@
 const defaultReducers = {
+  '@@init': state => state,
+
   load: (state, { payload }) => {
     verify(state, payload);
     return { ...state, ...payload };
