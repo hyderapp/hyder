@@ -1,8 +1,8 @@
 {
   "name": "@hyder/examples",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "scripts": {
-    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start"
+    "start": "webpack-dev-server --hot --config webpack.config.js"
   },
   "dependencies": {
     "@hyder/component": "^1.1.0",
@@ -10,15 +10,19 @@
     "prop-types": "^15.6.2",
     "react": "^16.8.1",
     "react-dom": "^16.8.1",
+    "redux": "^4.0.1",
     "react-redux": "^7.0.3",
     "redux-promise": "^0.6.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.0.1",
+    "bcd-react-webpack": "^8.0.0",
+    "eslint": "^6.0.1",
     "eslint-config-hyder": "^0.3.0",
     "node-sass": "^4.11.0",
-    "react-scripts": "^3.0.1",
-    "redux": "^4.0.1"
+    "webpack": "^4.35.3",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2"
   },
   "private": true,
   "browserslist": [
