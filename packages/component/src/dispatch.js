@@ -61,7 +61,7 @@ function runEffect(effect, action, helpers) {
       return resolveValue(value(helpers), cb);
     }
     if (Array.isArray(value)) {
-      value = listToIterator(value);
+      value = arrayToIterator(value);
     }
     if (is.iterator(value)) {
       return resolvePromise(iteratorToPromise(value, resolveValue), cb);
@@ -88,8 +88,8 @@ function iteratorToPromise(iterator, resolveValue) {
 }
 
 
-function listToIterator(list) {
-  return list[Symbol.iterator]();
+function arrayToIterator(array) {
+  return array[Symbol.iterator]();
 }
 
 
