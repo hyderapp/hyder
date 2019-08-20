@@ -61,7 +61,7 @@ function runEffect(effect, action, helpers) {
       return resolveValue(value(helpers), cb);
     }
     if (Array.isArray(value)) {
-      value = arrayToIterator(value);
+      return resolvePromise(arrayToPromise(value, resolveValue), cb);
     }
     if (is.iterator(value)) {
       return resolvePromise(iteratorToPromise(value, resolveValue), cb);
@@ -88,8 +88,11 @@ function iteratorToPromise(iterator, resolveValue) {
 }
 
 
-function arrayToIterator(array) {
-  return array[Symbol.iterator]();
+function arrayToPromise(array, resolveValue) {
+  const tasks = array.map(item => {
+    return new Promise(resolve => resolveValue(item, resolve));
+  });
+  return Promise.all(tasks);
 }
 
 
