@@ -60,6 +60,9 @@ function runEffect(effect, action, helpers) {
     if (is.func(value)) {
       return resolveValue(value(helpers), cb);
     }
+    if (Array.isArray(value)) {
+      value = listToIterator(value);
+    }
     if (is.iterator(value)) {
       return resolvePromise(iteratorToPromise(value, resolveValue), cb);
     }
@@ -82,6 +85,11 @@ function iteratorToPromise(iterator, resolveValue) {
     };
     next();
   });
+}
+
+
+function listToIterator(list) {
+  return list[Symbol.iterator]();
 }
 
 
