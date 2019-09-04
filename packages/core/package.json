@@ -1,6 +1,6 @@
 {
   "name": "@hyder/core",
-  "version": "1.0.0",
+  "version": "0.1.0-beta.1",
   "description": "hyder应用核心库",
   "main": "dist/index.js",
   "scripts": {
