@@ -1,4 +1,5 @@
-import qs from 'querystring';
+import qs from 'query-string';
+import 'isomorphic-fetch';
 import canIUse from './canIUse';
 
 

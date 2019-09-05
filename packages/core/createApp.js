@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, compose } from 'redux';
 import { Provider } from 'react-redux';
-import qs from 'querystring';
+import qs from 'query-string';
 import {
   createStoreEnhancer,
   replaceDispatch,
@@ -97,15 +97,11 @@ function createService(name, type) {
   // hyderManifest字段由webpack打包生成插入到html页面
   // 因为service.js是需要动态加载的，所以需要知晓文件名
   // 但是文件名会根据内容不同变化，所以需要webpack介入处理
-  // @see hyder/webpack
   const manifest = window.hyderManifest[name];
-  const service = manifest.services[0];
-  if (service) {
-    const serviceClient = new ServiceClient({ name, service, type });
-    handleDispatchActionFinish(name, serviceClient);
-    return serviceClient;
-  }
-  return null;
+  const service = manifest.service;
+  const serviceClient = new ServiceClient({ name, service, type });
+  handleDispatchActionFinish(name, serviceClient);
+  return serviceClient;
 }
 
 

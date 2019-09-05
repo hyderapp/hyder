@@ -4,14 +4,13 @@
   "version": "0.1.0",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "release": "lerna publish"
+    "lint": "eslint ."
   },
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {
     "eslint": "^5.12.1",
-    "eslint-config-hyder": "^0.3.0",
-    "lerna": "^3.10.7"
+    "eslint-config-hyder": "^0.3.0"
   },
   "private": true,
   "repository": {
