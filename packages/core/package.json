@@ -1,7 +1,8 @@
 {
   "name": "@hyder/core",
-  "version": "0.1.0-beta.2",
+  "version": "0.2.0-beta.1",
   "description": "hyder应用核心库",
+  "main": "src/index.js",
   "scripts": {
     "test": "test-mate",
     "cov": "test-mate --coverage"
