@@ -1,12 +1,15 @@
-import * as exps from './service';
+import * as exps from './index';
 
 
 test('exports', () => {
   [
     'canIUse',
-    'createService',
+    'createApp',
     'request'
   ].forEach(name => {
     expect(typeof exps[name]).toBe('function');
   });
+
+  expect(exps['createService']).toBe(null);
 });
+
