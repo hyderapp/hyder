@@ -9,10 +9,6 @@ describe('request', () => {
       expect(opts.method).toBe('GET');
       expect(opts.mode).toBe('cors');
       expect(opts.credentials).toBe('include');
-      expect(opts.headers).toEqual({
-        Accept: 'application/json',
-        'Content-Type': 'application/json; charset=utf-8'
-      });
       return result;
     });
 
@@ -36,8 +32,7 @@ describe('request', () => {
       expect(url).toBe('https://data.hyder.com/api/product');
       expect(method).toBe('POST');
       expect(headers).toEqual({
-        Accept: 'application/json',
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
         Authorization: 'Bearer xxx'
       });
       expect(data).toEqual({

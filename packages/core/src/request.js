@@ -11,30 +11,25 @@ import canIUse from './canIUse';
  * @param {Object} options
  *  - url
  *  - method      默认为get
+ *  - contentType 可以为form, 默认为空
+ *  - headers     请求头
  *  - data        请求数据, get方式也支持
- *  - headers
  * @return {Promise}
  */
 export default function({
-  // env,
   url,
-  method,
-  data,
-  headers
+  method = 'get',
+  contentType,
+  headers,
+  data
 }) {
-  // env = env || process.env.NODE_ENV || 'development';
-  method = (method || 'get').toUpperCase();
-
+  method = method.toUpperCase();
   if (method === 'GET' && data) {
     url = join(url, data);
     data = null;
+  } else if (isUpdate(method)) {
+    headers = attachHeaders(headers, contentType);
   }
-
-  headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json; charset=utf-8',
-    ...headers
-  };
 
   if (canIUse('data.request')) {
     return requestWithNative(url, method, data, headers);
@@ -47,6 +42,17 @@ export default function({
 function join(url, data) {
   data = typeof data === 'string' ? data : qs.stringify(data);
   return url + (url.indexOf('?') === -1 ? '?' : '&') + data;
+}
+
+
+function isUpdate(method) {
+  return ['POST', 'PUT', 'PATCH'].indexOf(method) !== -1;
+}
+
+
+function attachHeaders(headers, contentType) {
+  const value = contentType === 'form' ? 'application/x-www-form-urlencoded' : 'application/json';
+  return { 'Content-Type': value, ...headers };
 }
 
 
@@ -63,11 +69,35 @@ function requestWithNative(url, method, data, headers) {
 
 
 function requestWithFetch(url, method, data, headers) {
+  const body = data ? transformBody(data, headers) : null;
   return global.fetch(url, {
     method,
     mode: 'cors',
     credentials: 'include',
     headers,
-    body: data && JSON.stringify(data)
+    body
   }).then(res => res.json());
+}
+
+
+function transformBody(data, headers) {
+  if (!isPlainObject(data)) {
+    return data;
+  }
+
+  if (isFormRequest(headers)) {
+    return qs.stringify(data);
+  }
+
+  return JSON.stringify(data);
+}
+
+
+function isFormRequest(headers) {
+  const ct = headers['Content-Type'];
+  return ct === 'application/x-www-form-urlencoded';
+}
+
+function isPlainObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]';
 }
