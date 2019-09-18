@@ -6,7 +6,7 @@ const defaultReducers = {
     return { ...state, ...payload };
   },
 
-  save: (state, ...payload) => {
+  save: (state, { type, ...payload }) => {
     verify(state, payload);
     return { ...state, ...payload };
   }
