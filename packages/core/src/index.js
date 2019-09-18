@@ -1,18 +1,12 @@
 import canIUse from './canIUse';
 import request from './request';
 
-const [
-  createApp,
-  createService
-] = inBrowser() ?
-  [
-    require('./createApp').default,
-    null
-  ] :
-  [
-    null,
-    require('./createService').default
-  ];
+
+const browser = window !== 'undefined' && document !== 'undefined';
+
+const createApp = browser ? require('./createApp').default : null;
+const createService = browser ? null : require('./createService').default;
+
 
 export {
   canIUse,
@@ -20,7 +14,3 @@ export {
   createService,
   request
 };
-
-function inBrowser() {
-  return typeof window !== 'undefined' && typeof document !== 'undefined';
-}
