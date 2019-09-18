@@ -10,6 +10,6 @@ test('exports', () => {
     expect(typeof exps[name]).toBe('function');
   });
 
-  expect(exps['createService']).toBe(null);
+  expect(exps.createService).toBe(null);
 });
 
