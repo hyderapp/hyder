@@ -40,7 +40,7 @@ describe('request', () => {
       url: '/save',
       method: 'post',
       data: postData
-    })
+    });
     expect(res).toEqual({ success: false });
 
     fn.restore();
