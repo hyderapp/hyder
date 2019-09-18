@@ -2,7 +2,7 @@ import request from './request';
 
 
 describe('request', () => {
-  it('request with fetch in h5', async() => {
+  it('get in h5', async() => {
     const result = { success: true };
     const fn = mockFetch((url, opts) => {
       expect(url).toBe('https://api.hyder.io/v2/page?id=123');
@@ -13,7 +13,6 @@ describe('request', () => {
     });
 
     const res = await request({
-      env: 'production',
       url: 'https://api.hyder.io/v2/page',
       data: { id: '123' }
     });
@@ -25,7 +24,53 @@ describe('request', () => {
   });
 
 
-  it('request with native', async() => {
+  it('post in h5', async() => {
+    const postData = { name: 'hyder', version: '1.0' };
+
+    const fn = mockFetch((url, opts) => {
+      expect(opts.method).toBe('POST');
+      expect(opts.headers).toEqual({
+        'Content-Type': 'application/json'
+      });
+      expect(opts.body).toEqual(JSON.stringify(postData));
+      return { success: false };
+    });
+
+    const res = await request({
+      url: '/save',
+      method: 'post',
+      data: postData
+    })
+    expect(res).toEqual({ success: false });
+
+    fn.restore();
+  });
+
+
+  it('post in h5 with contentType=form', async() => {
+    const fn = mockFetch((url, opts) => {
+      expect(opts.headers).toEqual({
+        'Content-Type': 'application/x-www-form-urlencoded'
+      });
+      expect(opts.body).toEqual('name=hyder&version=1.0');
+      return { success: true };
+    });
+
+    const res = await request({
+      url: '/save/form',
+      method: 'post',
+      contentType: 'form',
+      data: { name: 'hyder', version: '1.0' }
+    });
+
+    expect(fn).toHaveBeenCalled();
+    expect(res).toEqual({ success: true });
+
+    fn.restore();
+  });
+
+
+  it('request in native', async() => {
     const last = global.hyderbridge;
     const result = { name: 'hyder', keywords: 'framework' };
     const fn = jest.fn(async({ url, method, headers, data }, success) => {
@@ -49,7 +94,6 @@ describe('request', () => {
     };
 
     const res = await request({
-      env: 'production',
       url: 'https://data.hyder.com/api/product',
       method: 'post',
       data: { id: '123' },
