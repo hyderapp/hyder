@@ -63,7 +63,7 @@ export default class ServiceClient {
 
     this.type = 'webview';
     debug(`load service with script: ${service.path}`);
-    const scriptjs = require('scriptjs');
+    const scriptjs = require('scriptjs').default;
     this.readyDefer = new Promise(resolve => scriptjs(service.path, resolve));
   }
 
