@@ -203,8 +203,16 @@ async function componentDispatch(model, action, stater) {
     if (!id) {
       throw new Error('assert false, component not found');
     }
-    await requestDispatchAction(serviceClient, model, action, id);
+    await requestDispatchAction(serviceClient, model, filterAction(action), id);
   }
+}
+
+function filterAction(action) {
+  if (action.type === 'mount') {
+    // 去掉其他无关的属性
+    return { type: action.type, route: action.route };
+  }
+  return action;
 }
 
 
