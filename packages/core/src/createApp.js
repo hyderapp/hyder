@@ -18,7 +18,6 @@ import ServiceClient from './internal/ServiceClient';
 
 import canIUse from './canIUse';
 
-
 const debug = require('debug')('hyder:AppClient ');
 
 

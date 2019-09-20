@@ -36,7 +36,7 @@ function registerModule(name, mod) {
 
 
 function isInNativeWebview() {
-  return !!get(global, 'webkit.messageHandlers');
+  return !!get(global, 'webkit.messageHandlers.HLJJSBridge.postMessage') && global['hyderbridge_core'];
 }
 
 
