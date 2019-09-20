@@ -78,12 +78,9 @@ export default function createApp({ plugins = [], name, models, pages, serviceTy
   }
 
   // 解析路由，准备渲染页面
-  const route = parseRoute(query.hyderUrl || window.location.pathname, query);
-  // 在开发环境下, route.name可能为空，则设置为当前开发的产品
-  if (!route.name) {
-    route.name = name;
-  }
-
+  const rExt = /\.\w+$/;
+  const hyderUrl = query.hyderurl || window.location.pathname.replace(rExt, '');
+  const route = parseRoute(name, hyderUrl, query);
   renderPage(route, { models, pages });
 }
 
@@ -105,26 +102,22 @@ function createService(name, type) {
 }
 
 
-function parseRoute(path, query) {
+function parseRoute(name, path, query) {
   // 路径形式为: ${product_name}/${page_name}
   const rRoute = /^\/?([-\w]+)\/([^.]+)/;
   const match = rRoute.exec(path) || [];
-  if (!match) {
-    throw new Error('invalid page url');
-  }
 
+  name = match[1] || name;
+  path = match[2];
   query = filterQuery(query);
-  return {
-    name: match[1],
-    path: match[2],
-    query
-  };
+
+  return { name, path, query };
 }
 
 
 function filterQuery(query) {
   // hyderXXX开头的参数保留框架使用
-  const rIgnore = /^hyder[_A-Z]/;
+  const rIgnore = /^hyder/;
   const result = {};
   for (const name in query) {
     if (!rIgnore.test(name)) {

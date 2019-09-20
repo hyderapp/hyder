@@ -15,6 +15,7 @@ import { diff } from './internal/datadiff';
 
 const debug = createDebug('hyder:AppService ');
 
+
 const Stores = globalRegister('hyderServiceStores', {});
 const Apps = globalRegister('hyderServiceApps', {});
 
