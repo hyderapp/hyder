@@ -103,14 +103,8 @@ function createService(name, type) {
 
 
 function parseRoute(name, path, query) {
-  // 路径形式为: ${product_name}/${page_name}
-  const rRoute = /^\/?([-\w]+)\/([^.]+)/;
-  const match = rRoute.exec(path) || [];
-
-  name = match[1] || name;
-  path = match[2];
+  path = path.replace(/^\//, '');
   query = filterQuery(query);
-
   return { name, path, query };
 }
 
