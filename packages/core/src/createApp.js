@@ -50,7 +50,7 @@ window.hyderDebug = function(name) {
 };
 
 
-export default function createApp({ plugins = [], name, models, pages, serviceType }) {
+export default function createApp({ plugins = [], name, models, pages, router, serviceType }) {
   debug('createApp %s', name);
   defaultName = name;
 
@@ -78,9 +78,9 @@ export default function createApp({ plugins = [], name, models, pages, serviceTy
   }
 
   // 解析路由，准备渲染页面
-  const rExt = /\.\w+$/;
-  const hyderUrl = query.hyderurl || window.location.pathname.replace(rExt, '');
-  const route = parseRoute(name, hyderUrl, query);
+  const hyderUrl = query.hyderurl || lastPathPart(window.location.pathname);
+  router = router || defaultRouter;
+  const route = router(name, hyderUrl, filterQuery(query));
   renderPage(route, { models, pages });
 }
 
@@ -90,22 +90,10 @@ function isPreload(name, query) {
 }
 
 
-function createService(name, type) {
-  // hyderManifest字段由webpack打包生成插入到html页面
-  // 因为service.js是需要动态加载的，所以需要知晓文件名
-  // 但是文件名会根据内容不同变化，所以需要webpack介入处理
-  const manifest = window.hyderManifest[name];
-  const service = manifest.service;
-  const serviceClient = new ServiceClient({ name, service, type });
-  handleDispatchActionFinish(name, serviceClient);
-  return serviceClient;
-}
-
-
-function parseRoute(name, path, query) {
-  path = path.replace(/^\//, '');
-  query = filterQuery(query);
-  return { name, path, query };
+function lastPathPart(path) {
+  path = path.replace(/\..*$/, '');
+  const parts = path.split('/');
+  return parts[parts.length - 1];
 }
 
 
@@ -119,6 +107,23 @@ function filterQuery(query) {
     }
   }
   return result;
+}
+
+
+function defaultRouter(name, url, query) {
+  return { name, url, query };
+}
+
+
+function createService(name, type) {
+  // hyderManifest字段由webpack打包生成插入到html页面
+  // 因为service.js是需要动态加载的，所以需要知晓文件名
+  // 但是文件名会根据内容不同变化，所以需要webpack介入处理
+  const manifest = window.hyderManifest[name];
+  const service = manifest.service;
+  const serviceClient = new ServiceClient({ name, service, type });
+  handleDispatchActionFinish(name, serviceClient);
+  return serviceClient;
 }
 
 
