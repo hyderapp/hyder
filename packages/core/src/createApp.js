@@ -28,7 +28,8 @@ const Apps = globalRegister('hyderWebviewApps', {});
 // TODO
 // 根据model取得产品名的临时方案
 // 目前我们没有合并多个产品的代码所以没有问题
-let defaultName = null;
+const defaultName = globalRegister('defaultName', {});
+
 // 注册模块级model的自定义处理
 const staterIdMap = globalRegister('staterIdMap', new Map());
 const idStaterMap = globalRegister('idStaterMap', new Map());
@@ -43,7 +44,7 @@ replaceDispatch(componentDispatch);
 
 
 window.hyderDebug = function(name) {
-  name = name || defaultName;
+  name = name || defaultName.value;
   const client = ServiceClient.get(name || 'default');
   client.emit('debug');
 };
@@ -51,7 +52,7 @@ window.hyderDebug = function(name) {
 
 export default function createApp({ plugins = [], name, models, pages, router, serviceType }) {
   debug('createApp %s', name);
-  defaultName = name;
+  defaultName.value = name;
 
   const service = createService(name, serviceType);
 
@@ -177,7 +178,8 @@ function createDispatch(serviceClient) {
 
 async function componentDispatch(model, action, stater) {
   // TODO 需要重构从model得到serviceClient的逻辑
-  const serviceClient = ServiceClient.get(defaultName);
+  const serviceClient = ServiceClient.get(defaultName.value);
+
   debug('dispatch %s %o', model.name, action);
   if (action.type === '@@init') {
     const id = guid();

@@ -37,6 +37,7 @@ export default class ServiceClient {
    *  - type  容器类型, 有 webview, webworker和auto。默认为auto
    */
   constructor({ name, service, type = 'auto' }) {
+    debug('create service client: %s', name);
     Services[name] = this;
 
     this.name = name;
