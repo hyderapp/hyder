@@ -13,7 +13,7 @@ import withArgJson from './internal/withArgJson';
 import { diff } from './internal/datadiff';
 
 
-const debug = createDebug('hyder:AppService ');
+const debug = createDebug('hyder:AppService');
 
 
 const Stores = globalRegister('hyderServiceStores', {});
@@ -136,6 +136,7 @@ async function dispatchAction(group, modelName, action, id, opts = {}) {
       set: current => {
         const previous = Stater.get(item, id);
         const patches = diff(previous, current);
+        debug('diff\n\t%o\n\t%o\n\t%o', previous, current, patches);
         if (patches) {
           Stater.set(item, id, current);
           debug('set state: %s, %o', modelName, current);
