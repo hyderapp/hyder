@@ -134,7 +134,7 @@ async function dispatchAction(group, modelName, action, id, opts = {}) {
     const stater = {
       get: () => Stater.get(item, id),
       set: current => {
-        const previous = item.state;
+        const previous = Stater.get(item, id);
         const patches = diff(previous, current);
         if (patches) {
           Stater.set(item, id, current);
