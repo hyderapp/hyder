@@ -28,7 +28,7 @@ export default function withModel(model) {
           const dispatch = global[DISPATCH] || defaultDispatch;
           return dispatch(model, action, this.stater);
         }
-        return this.props.dispath && this.props.dispatch(action);
+        return this.props.dispatch && this.props.dispatch(action);
       };
 
       componentDidMount() {
