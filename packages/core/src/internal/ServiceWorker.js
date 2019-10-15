@@ -76,15 +76,11 @@ function getServiceType() {
     return 'webview';
   }
 
-  if ((/DedicatedWorkerGlobalScope/).test(global.toString())) {
-    return 'webworker';
-  }
-
   if (canIUse('core.webviewInvoke')) {
     return 'native';
   }
 
-  return 'unknow';
+  return 'webworker';
 }
 
 

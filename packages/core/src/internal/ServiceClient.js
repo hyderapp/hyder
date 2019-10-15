@@ -122,6 +122,8 @@ function handleWebWorkerMessage(self) {
     if (data.type === 'webviewInvoke') {
       const event = data.event;
       trigger(self, event);
+    } else if (data.type === 'hyderLog') {
+      window.hyderLogHandler && window.hyderLogHandler(data.message);
     }
   };
 }
