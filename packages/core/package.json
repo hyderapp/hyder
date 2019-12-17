@@ -1,0 +1,25 @@
+{
+  "name": "@hyder/core",
+  "version": "0.6.5-beta.1",
+  "main": "src/index.js",
+  "description": "hyder应用核心库",
+  "scripts": {
+    "test": "test-mate",
+    "cov": "test-mate --coverage"
+  },
+  "dependencies": {
+    "@hyder/component": "^1.5.1-beta",
+    "debug": "^4.1.1",
+    "isomorphic-fetch": "^2.2.1",
+    "query-string": "^5.1.1",
+    "react-redux": "^7.1.1",
+    "redux": "^4.0.4",
+    "scriptjs": "^2.5.9"
+  },
+  "devDependencies": {
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-test-mate": "^2.4.2"
+  },
+  "license": "MIT"
+}

@@ -4,6 +4,11 @@ const defaultReducers = {
   load: (state, { payload }) => {
     verify(state, payload);
     return { ...state, ...payload };
+  },
+
+  save: (state, { type, ...payload }) => {
+    verify(state, payload);
+    return { ...state, ...payload };
   }
 };
 

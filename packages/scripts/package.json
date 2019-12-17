@@ -1,0 +1,12 @@
+{
+  "name": "@hyder/scripts",
+  "version": "0.1.0-beta.1",
+  "description": "webpack配置",
+  "scripts": {
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "license": "MIT"
+}
