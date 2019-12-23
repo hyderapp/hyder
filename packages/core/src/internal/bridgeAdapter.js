@@ -16,13 +16,13 @@ const bridge = global.hyderbridge || (global.hyderbridge = {});
 
 export default function bridgeAdapter() {
   if (isInNativeWebview()) {
-    delegateWebViewMethod('core', 'triggerWebviewReady');
-    delegateWebViewMethod('core', 'serviceInvoke', {
-      transformer(name, arg) {
-        arg = arg || {};
-        return `${name}('${JSON.stringify(arg)}')`;
-      }
-    });
+    // delegateWebViewMethod('core', 'triggerWebviewReady');
+    // delegateWebViewMethod('core', 'serviceInvoke', {
+    //   transformer(name, arg) {
+    //     arg = arg || {};
+    //     return `${name}('${JSON.stringify(arg)}')`;
+    //   }
+    // });
     delegateWebViewMethod('core', 'disableAppCache', { action: 'closeAppHyder' });
   }
 }
@@ -35,12 +35,16 @@ function delegateWebViewMethod(mod, method, { handler, action, transformer } = {
   transformer = transformer || (arg => arg);
 
   bag[method] = function(...args) {
-    global.webkit.messageHandlers.HLJJSBridge.postMessage({
-      handler,
-      action,
-      parameters: transformer(...args),
-      callbackID: guid()
-    });
+    try {
+      global.webkit.messageHandlers.HLJJSBridge.postMessage({
+        handler,
+        action,
+        parameters: transformer(...args),
+        callbackID: guid()
+      });
+    } catch (e) {
+      console.error(e.message);  // eslint-disable-line
+    }
   };
 }
 
