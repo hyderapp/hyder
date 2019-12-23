@@ -67,6 +67,7 @@ export default function createApp({ plugins = [], name, models, pages, router, s
 
   // 目前ios端中使用appcache会造成post请求不可用，因此页面加载好了之后将之关闭掉
   if (canIUse('core.disableAppCache')) {
+    debug('disableAppCache');
     window.hyderbridge.core.disableAppCache();
   }
 
