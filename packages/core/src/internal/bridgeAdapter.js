@@ -35,16 +35,12 @@ function delegateWebViewMethod(mod, method, { handler, action, transformer } = {
   transformer = transformer || (arg => arg);
 
   bag[method] = function(...args) {
-    try {
-      global.webkit.messageHandlers.HLJJSBridge.postMessage({
-        handler,
-        action,
-        parameters: transformer(...args),
-        callbackID: guid()
-      });
-    } catch (e) {
-      console.error(e.message);  // eslint-disable-line
-    }
+    global.webkit.messageHandlers.HLJJSBridge.postMessage({
+      handler,
+      action,
+      parameters: transformer(...args),
+      callbackID: guid()
+    });
   };
 }
 
