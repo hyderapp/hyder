@@ -28,7 +28,7 @@ export default function bridgeAdapter() {
 }
 
 
-function delegateWebViewMethod(mod, method, { handler, action, transformer }) {
+function delegateWebViewMethod(mod, method, { handler, action, transformer } = {}) {
   handler = handler || 'Hyder';
   action = action || method;
   const bag = bridge[mod] || (bridge[mod] = {});
