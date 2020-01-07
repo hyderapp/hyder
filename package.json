@@ -17,6 +17,7 @@
     "type": "git",
     "url": "git+https://github.com/hyderapp/hyder.git"
   },
+  "private": true,
   "author": "h5@hlj.team",
   "license": "MIT",
   "bugs": {

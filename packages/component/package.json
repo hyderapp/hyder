@@ -19,5 +19,9 @@
     "webpack": "^4.32.2",
     "webpack-cli": "^3.3.2"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org",
+    "access": "public"
+  },
   "license": "MIT"
 }
