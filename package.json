@@ -1,7 +1,7 @@
 {
   "name": "@hyder/packages",
   "description": "开放、流畅的移动端应用框架",
-  "version": "0.1.0",
+  "version": "0.6.5",
   "main": "index.js",
   "scripts": {
     "lint": "eslint ."

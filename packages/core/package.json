@@ -1,6 +1,6 @@
 {
   "name": "@hyder/core",
-  "version": "0.6.5-beta.1",
+  "version": "0.6.5",
   "main": "src/index.js",
   "description": "hyder应用核心库",
   "scripts": {
@@ -8,7 +8,7 @@
     "cov": "test-mate --coverage"
   },
   "dependencies": {
-    "@hyder/component": "^1.5.1-beta",
+    "@hyder/component": "^1.5.2",
     "debug": "^4.1.1",
     "isomorphic-fetch": "^2.2.1",
     "query-string": "^5.1.1",
