@@ -34,5 +34,6 @@ module.exports = {
 
   'react/prop-types': 1,
   'class-methods-use-this': 0,
-  'import/prefer-default-export': 0
+  'import/prefer-default-export': 0,
+  'import/extensions': 0
 };

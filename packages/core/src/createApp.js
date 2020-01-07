@@ -65,6 +65,12 @@ export default function createApp({ plugins = [], name, models, pages, router, s
   app.service = service;
   plugins.map(plugin => plugin(app));
 
+  // 目前ios端中使用appcache会造成post请求不可用，因此页面加载好了之后将之关闭掉
+  if (canIUse('core.disableAppCache')) {
+    debug('disableAppCache');
+    window.hyderbridge.core.disableAppCache();
+  }
+
   // native中需要主动通知webview已可用
   if (canIUse('core.triggerWebviewReady')) {
     window.hyderbridge.core.triggerWebviewReady();
