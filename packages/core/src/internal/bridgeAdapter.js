@@ -16,13 +16,6 @@ const bridge = global.hyderbridge || (global.hyderbridge = {});
 
 export default function bridgeAdapter() {
   if (isInNativeWebview()) {
-    // delegateWebViewMethod('core', 'triggerWebviewReady');
-    // delegateWebViewMethod('core', 'serviceInvoke', {
-    //   transformer(name, arg) {
-    //     arg = arg || {};
-    //     return `${name}('${JSON.stringify(arg)}')`;
-    //   }
-    // });
     delegateWebViewMethod('core', 'disableAppCache', { action: 'closeAppHyder' });
   }
 }
