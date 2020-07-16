@@ -59,7 +59,7 @@ export default class ServiceWorker {
     }
   }
 
-  invoker(method, args) {
+  invoke(method, args) {
     return this.invoker.invoke(method, args);
   }
 }

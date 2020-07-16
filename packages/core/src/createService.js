@@ -62,6 +62,7 @@ export default function createService({ plugins = [], name, models }) {
   const app = new EventEmitter();
   app.worker = worker;
   app.invoker = invoker;
+  app.invoke = (method, args) => app.worker.invoke(method, args);
   Apps[name] = app;
   plugins.map(plugin => plugin(app));
 }

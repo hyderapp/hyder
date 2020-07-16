@@ -66,6 +66,7 @@ export default function createApp({ plugins = [], name, models, pages, router, s
   Apps[name] = app;
   app.service = service;
   app.invoker = invoker;
+  app.invoke = (method, args) => app.service.invoke(method, args);
   plugins.map(plugin => plugin(app));
 
   // 目前ios端中使用appcache会造成post请求不可用，因此页面加载好了之后将之关闭掉
