@@ -1,6 +1,7 @@
 import canIUse from '../canIUse';
 import globalRegister from './globalRegister';
 import withArgJson from './withArgJson';
+import EventInvoker from './EventInvoker';
 import guid from './guid';
 
 
@@ -42,9 +43,7 @@ export default class ServiceClient {
 
     this.name = name;
     this.listeners = [];
-
-    this.invokeQueue = new Map();
-    handleInvoke(this);
+    this.invoker = new EventInvoker('Service', this);
 
     if (type === 'auto' && canIUseNativeSerivce()) {
       // native will load service.
@@ -91,26 +90,8 @@ export default class ServiceClient {
     }
   }
 
-  async invoke(name, args) {
-    debug('invoke %s, %o', name, args);
-    const id = guid();
-    const timeout = 10000;  // 10s
-
-    return new Promise((resolve, reject) => {
-      const clean = () => this.invokeQueue.delete(id);
-      this.invokeQueue.set(id, (e, data) => {
-        debug('invoke finish %s, %o', name, data);
-        clean();
-        e ? reject(e) : resolve(data);
-      });
-
-      setTimeout(() => {
-        clean();
-        reject(new Error(`ServiceInvokeTimeout ${name}`));
-      }, timeout);
-
-      this.emit('hyderServiceInvoke', { id, name, args });
-    });
+  invoke(method, args) {
+    return this.invoker.invoke(method, args);
   }
 }
 
@@ -135,14 +116,6 @@ function trigger(self, event) {
       debug('handle %s: %o', type, event.data);
       handler(event.data);
     }
-  });
-}
-
-
-function handleInvoke(self) {
-  self.on('hyderServiceInvokeFinish', ({ id, error, data }) => {
-    const cb = self.invokeQueue.get(id);
-    cb && cb(error, data);
   });
 }
 

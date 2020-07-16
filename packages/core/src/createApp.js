@@ -11,9 +11,9 @@ import {
 import guid from './internal/guid';
 import bridgeAdapter from './internal/bridgeAdapter';
 import registerLogger from './internal/registerLogger';
-import EventEmitter from './internal/EventEmitter';
 import { patch } from './internal/datadiff';
 import globalRegister from './internal/globalRegister';
+import EventEmitter from './internal/EventEmitter';
 import ServiceClient from './internal/ServiceClient';
 
 import canIUse from './canIUse';

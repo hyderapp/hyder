@@ -4,11 +4,12 @@ import {
   normalizeModel
 } from '@hyder/component';
 import bridgeAdapter from './internal/bridgeAdapter';
-import EventEmitter from './internal/EventEmitter';
 import registerLogger from './internal/registerLogger';
 import globalRegister from './internal/globalRegister';
+import EventEmitter from './internal/EventEmitter';
+import EventInvoker from './internal/EventInvoker';
+import EventInvokerHandler from './internal/EventInvokerHandler';
 import ServiceWorker from './internal/ServiceWorker';
-import ServiceWorkerInvoker from './internal/ServiceWorkerInvoker';
 import withArgJson from './internal/withArgJson';
 import { diff } from './internal/datadiff';
 
@@ -47,12 +48,12 @@ function onPageLoad(route) {
 export default function createService({ plugins = [], name, models }) {
   debug('createService %s', name);
 
-  const invoker = new ServiceWorkerInvoker();
+  const invoker = new EventInvokerHandler();
   invoker.add('dispatchAction', ({ model, action, id }) => {
     return dispatchAction(name, model, action, id);
   });
 
-  const worker = new ServiceWorker({ name, invoker: invoker.handler });
+  const worker = new ServiceWorker({ name, handler: invoker.handler });
   worker.on('loadPage', onPageLoad);
   Stores[name] = createStore(name, models, worker);
 

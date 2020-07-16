@@ -2,6 +2,7 @@ import createDebug from 'debug';
 import canIUse from '../canIUse';
 import globalRegister from './globalRegister';
 import withArgJson from './withArgJson';
+import EventInvoker from './EventInvoker';
 import guid from './guid';
 
 
@@ -29,12 +30,13 @@ export default class ServiceWorker {
     return Workers[name];
   }
 
-  constructor({ name, invoker }) {
+  constructor({ name, handler }) {
     Workers[name] = this;
     this.name = name;
     this.listeners = [];
     this.type = getServiceType();
-    handleInvoke(this, invoker);
+    this.invoker = new EventInvoker('Client', this);
+    EventInvoker.register('Service', this, handler);
   }
 
   on(type, handler) {
@@ -55,6 +57,10 @@ export default class ServiceWorker {
     } else {
       throw new Error('should not be here');
     }
+  }
+
+  invoker(method, args) {
+    return this.invoker.invoke(method, args);
   }
 }
 
@@ -81,22 +87,5 @@ function getServiceType() {
   }
 
   return 'webworker';
-}
-
-
-function handleInvoke(self, invoker) {
-  self.on('hyderServiceInvoke', async({ id, name, args }) => {
-    const finish = (error, data) => {
-      if (error) {
-        console.error(error);  // eslint-disable-line
-        error = { message: error.message, stack: error.stack };  // for serialize to string
-      }
-      self.emit('hyderServiceInvokeFinish', { id, error, data });
-    };
-    invoker(name, args).then(
-      data => finish(null, data),
-      error => finish(error, null)
-    );
-  });
 }
 
