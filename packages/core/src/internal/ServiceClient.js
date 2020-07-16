@@ -36,14 +36,16 @@ export default class ServiceClient {
    * @param {Object}
    *  - service service路径
    *  - type  容器类型, 有 webview, webworker和auto。默认为auto
+   *  - handler {EventInvokerHandler}
    */
-  constructor({ name, service, type = 'auto' }) {
+  constructor({ name, service, type = 'auto', handler }) {
     debug('create service client: %s', name);
     Services[name] = this;
 
     this.name = name;
     this.listeners = [];
     this.invoker = new EventInvoker('Service', this);
+    EventInvoker.register('Client', this, handler);
 
     if (type === 'auto' && canIUseNativeSerivce()) {
       // native will load service.

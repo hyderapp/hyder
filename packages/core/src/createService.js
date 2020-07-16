@@ -7,7 +7,6 @@ import bridgeAdapter from './internal/bridgeAdapter';
 import registerLogger from './internal/registerLogger';
 import globalRegister from './internal/globalRegister';
 import EventEmitter from './internal/EventEmitter';
-import EventInvoker from './internal/EventInvoker';
 import EventInvokerHandler from './internal/EventInvokerHandler';
 import ServiceWorker from './internal/ServiceWorker';
 import withArgJson from './internal/withArgJson';
