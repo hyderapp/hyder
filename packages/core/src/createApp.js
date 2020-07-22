@@ -11,9 +11,10 @@ import {
 import guid from './internal/guid';
 import bridgeAdapter from './internal/bridgeAdapter';
 import registerLogger from './internal/registerLogger';
-import EventEmitter from './internal/EventEmitter';
 import { patch } from './internal/datadiff';
 import globalRegister from './internal/globalRegister';
+import EventEmitter from './internal/EventEmitter';
+import EventInvokerHandler from './internal/EventInvokerHandler';
 import ServiceClient from './internal/ServiceClient';
 
 import canIUse from './canIUse';
@@ -54,7 +55,8 @@ export default function createApp({ plugins = [], name, models, pages, router, s
   debug('createApp %s', name);
   defaultName.value = name;
 
-  const service = createService(name, serviceType);
+  const invoker = new EventInvokerHandler();
+  const service = createService(name, serviceType, invoker.handler);
 
   // @hyder 这个model 用于做一些通用组件的交互
   models = [{ name: '@hyder' }].concat(models || []).map(normalizeModel);
@@ -63,6 +65,8 @@ export default function createApp({ plugins = [], name, models, pages, router, s
   const app = new EventEmitter();
   Apps[name] = app;
   app.service = service;
+  app.invoker = invoker;
+  app.invoke = (method, args) => app.service.invoke(method, args);
   plugins.map(plugin => plugin(app));
 
   // 目前ios端中使用appcache会造成post请求不可用，因此页面加载好了之后将之关闭掉
@@ -121,13 +125,14 @@ function defaultRouter(name, url, query) {
 }
 
 
-function createService(name, type) {
+function createService(name, type, handler) {
   // hyderManifest字段由webpack打包生成插入到html页面
   // 因为service.js是需要动态加载的，所以需要知晓文件名
   // 但是文件名会根据内容不同变化，所以需要webpack介入处理
   const manifest = window.hyderManifest[name];
   const service = manifest.service;
-  const serviceClient = new ServiceClient({ name, service, type });
+
+  const serviceClient = new ServiceClient({ name, service, type, handler });
   handleDispatchActionFinish(name, serviceClient);
   return serviceClient;
 }

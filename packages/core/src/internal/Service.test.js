@@ -1,6 +1,6 @@
 import ServiceClient from './ServiceClient';
 import ServiceWorker from './ServiceWorker';
-import Invoker from './ServiceWorkerInvoker';
+import EventInvokerHandler from './EventInvokerHandler';
 
 
 jest.mock('scriptjs');
@@ -46,7 +46,7 @@ describe('service', () => {
 
 
   it('invoke woker function', async() => {
-    const invoker = jest.fn(async(name, args) => {
+    const handler = jest.fn(async(name, args) => {
       if (name === 'sum') {
         return args.reduce((acc, v) => acc + v, 0);
       }
@@ -56,7 +56,7 @@ describe('service', () => {
       return null;
     });
 
-    const [client, worker] = createService({ name: 'test', type: 'webview', invoker });
+    const [client, worker] = createService({ name: 'test', type: 'webview', handler });
     expect(worker.type).toBe('webview');
 
     const s = await client.invoke('sum', [1, 2, 3, 4]);
@@ -70,8 +70,8 @@ describe('service', () => {
 
 
   it('extend invoke function', async() => {
-    const invoker = new Invoker();
-    const [client] = createService({ name: 'test', type: 'webview', invoker: invoker.handler });
+    const invoker = new EventInvokerHandler();
+    const [client] = createService({ name: 'test', type: 'webview', handler: invoker.handler });
 
     invoker.add('sum', items => {
       return Promise.resolve(
@@ -85,10 +85,10 @@ describe('service', () => {
 });
 
 
-function createService({ name, type, invoker }) {
+function createService({ name, type, handler }) {
   const service = { path: 'test.js' };
   const client = new ServiceClient({ name, service, type });
-  const worker = new ServiceWorker({ name, invoker });
+  const worker = new ServiceWorker({ name, handler });
   return [client, worker];
 }
 

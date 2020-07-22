@@ -1,4 +1,4 @@
-export default class ServiceWorkerInvoker {
+export default class EventInvokerHandler {
   constructor() {
     this.handlers = {};
   }
