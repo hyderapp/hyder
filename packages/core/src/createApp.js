@@ -35,13 +35,20 @@ const defaultName = globalRegister('defaultName', {});
 const staterIdMap = globalRegister('staterIdMap', new Map());
 const idStaterMap = globalRegister('idStaterMap', new Map());
 
-// 兼容目前ios/android的实现差异，以及和hyder设计的差异
-bridgeAdapter();
+const guard = globalRegister('guardMap', {});
 
-// 注册日志处理
-registerLogger();
+function setup() {
+  if (guard.setuped) {
+    return;
+  }
+  guard.setuped = true;
 
-replaceDispatch(componentDispatch);
+  // 兼容目前ios/android的实现差异，以及和hyder设计的差异
+  bridgeAdapter();
+  // 注册日志处理
+  registerLogger();
+  replaceDispatch(componentDispatch);
+}
 
 
 window.hyderDebug = function(name) {
@@ -52,6 +59,8 @@ window.hyderDebug = function(name) {
 
 
 export default function createApp({ plugins = [], name, models, pages, router, serviceType }) {
+  setup();
+
   debug('createApp %s', name);
   defaultName.value = name;
 
